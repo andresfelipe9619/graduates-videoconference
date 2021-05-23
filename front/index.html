@@ -210,15 +210,7 @@
               Finalizar inscripción
             </div>
 
-            <a
-              class="ui red not-visible button"
-              id="register-pay-btn"
-              name="register-pay-btn"
-              onclick="submitPayment()"
-              target=" _blank"
-              href="https://pagoenlinea.univalle.edu.co/autoliquidacion/?ser_codigo=340&una_codigo=24&hash=c8371222b8308d4b339e33827de66a604990d210"
-              >Generar pago</a
-            >
+
           </form>
 
           <div class="ui bottom attached warning message">
@@ -231,7 +223,7 @@
         <div class="ui tiny modal">
           <i class="close icon" onclick="location.reload('true')"></i>
           <div class="header success">
-            Usuario Registrado Satisfactoriamente!
+            Usuario registrado satisfactoriamente a la videoconferencia
           </div>
           <div class="content">
             <div id="result-msg" class="ui success message"></div>
@@ -240,11 +232,11 @@
               <a
                 id="modal-payment"
                 class="ui red right labeled icon button"
-                onclick="modalPayment()"
+                onclick="location.reload('true')"
                 target=" _blank"
                 href="https://pagoenlinea.univalle.edu.co/autoliquidacion/?ser_codigo=340&una_codigo=24&hash=c8371222b8308d4b339e33827de66a604990d210"
               >
-                Generar pago
+                Aceptar
               </a>
             </div>
           </div>
