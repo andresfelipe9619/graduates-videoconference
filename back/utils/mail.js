@@ -20,7 +20,7 @@ const longFormatOptions = {
 }
 
 function sendRegistrationEmail ({ person }) {
-  const subject = 'Registro Exitoso!'
+  const subject = 'Inscripción Exitosa!'
   const body = `
     <div style="text-align:left">
         <h3>Tu inscripción a la videoconferncia Políticas públicas de gestión del riesgo en el manejo del Covid-19 "Una carrera contra el tiempo", fue exitosa</h3>
