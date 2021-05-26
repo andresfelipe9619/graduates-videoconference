@@ -4,8 +4,8 @@
   <head>
     <base target="_top" />
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Security-Policy" content="connect-src http:" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css" />
     <style>
@@ -85,7 +85,7 @@
 
     <div id="main-content" class="ui main container middle center grid">
       <div class="one column row fluid" id="id-search">
-        <div id="search-container" class="twelve wide column">
+        <div id="search-container" class="twelve wide column computer tablet large screen only">
           <div class="ui fluid action input large">
             <input id="busca-cedula" name="busca-cedula" class="numeric" placeholder="Ingrese su numero de cédula..."
               type="text" />
@@ -94,6 +94,11 @@
             </button>
           </div>
         </div>
+        <div class="twelve wide column mobile only">
+          <button id="btn-search" tabindex="0" class="ui red button" onclick="searchForPerson()">
+            Iniciar proceso de inscripción
+          </button>
+        </div>
         <div class="four wide column">
           <div id="search-msg" class="ui message hidden"></div>
         </div>
@@ -101,10 +106,11 @@
       <div class="row">
         <div id="mainForm" class="twelve wide center column">
           <div id="pay-msg" class="ui success message not-visible"></div>
-          <div class="ui error message not-visible"><i class="close icon"></i></div>
+          <div class="ui error message not-visible">
+            <i class="close icon"></i>
+          </div>
           <form class="ui form attached fluid segment">
             <div class="ui error message"><i class="close icon"></i></div>
-
             <h4 class="ui dividing header">Información General</h4>
             <div class="field">
               <div class="fields">
@@ -174,8 +180,6 @@
             <div id="submit-btn" name="submit-btn " class="ui submit red button">
               Finalizar inscripción
             </div>
-
-
           </form>
 
           <div class="ui bottom attached warning message">
@@ -194,11 +198,9 @@
             <div id="result-msg" class="ui success message"></div>
 
             <div class="actions">
-              <a id="modal-payment" class="ui red right labeled icon button" onclick="location.reload('true')"
-                target=" _blank"
-                href="https://pagoenlinea.univalle.edu.co/autoliquidacion/?ser_codigo=340&una_codigo=24&hash=c8371222b8308d4b339e33827de66a604990d210">
+              <button id="modal-payment" class="ui red right labeled icon button" onclick="location.reload('true')">
                 Aceptar
-              </a>
+              </button>
             </div>
           </div>
         </div>
