@@ -23,9 +23,9 @@ function sendRegistrationEmail ({ person }) {
   const subject = 'Inscripción Exitosa!'
   const body = `
     <div style="text-align:left">
-        <h3>Tu inscripción a la videoconferncia Políticas públicas de gestión del riesgo en el manejo del Covid-19 "Una carrera contra el tiempo", fue exitosa</h3>
-        <h3>Te esperamos el proximo jueves 17 de Junio a las 6:00pm. via zoom. Un dia antes del evento, estará llegando al correo registrado, en enlace de acceso a la videoconferencia</h3>
-        <h4>Detalle del registro:</h4>
+        <h3>Tu inscripción a la videoconferncia Políticas públicas de gestión del riesgo en el manejo del Covid-19 "Una carrera contra el tiempo", fue exitosa.</h3>
+        <h3>Te esperamos el proximo jueves 17 de Junio a las 6:00pm. via zoom. Un dia antes del evento, estará llegando al correo registrado, en enlace de acceso a la videoconferencia.</h3>
+        <h3>Detalle del registro:</h3>
         <p><strong>Fecha de Inscripcion:</strong> ${new Date().toLocaleString(
           'en-US',
           longFormatOptions
