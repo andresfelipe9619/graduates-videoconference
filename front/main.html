@@ -7,7 +7,6 @@
       buttonpressed = $(this).attr('name')
     })
 
-    formValidation()
     loadAcademicProgramsAndFaculties()
     $('.ui.radio.checkbox').checkbox()
     $('select.dropdown').dropdown()
@@ -132,38 +131,34 @@
     $('#btn-search').addClass('loading')
 
     var onSuccess = function (person) {
-      if (person) {
-        showForm()
-        $('.ui.form').addClass('loading')
-        console.log('A nice formatted person', person)
-        $('#btn-search').removeClass('loading')
-        $("input[name='cedula']").prop('readonly', true)
-        $("input[name='cedula']").addClass('not-allowed')
-        if (person.isRegistered) {
-          loadPersonInForm(person)
-        } else {
-          searchPersonInSRA(cedula)
-        }
-      } else {
-        console.log('Something went wrong searching user...')
-      }
+      if (!person) return console.log('Something went wrong searching user...')
+      showForm()
+      $('.ui.form').addClass('loading')
+      console.log('A nice formatted person', person)
+      $('#btn-search').removeClass('loading')
+      $("input[name='cedula']").prop('readonly', true)
+      $("input[name='cedula']").addClass('not-allowed')
+
+      if (person.isRegistered) return loadPersonInForm(person)
+      formValidation()
+      searchPersonInSRA(cedula)
     }
 
     var cedula = $('#busca-cedula').val()
     if (cedula.length > 0) {
-      google.script.run
+      return google.script.run
         .withSuccessHandler(onSuccess)
         .withFailureHandler(errorHandler)
         .searchPerson(cedula)
-    } else {
-      $('#btn-search').removeClass('loading')
-      $('#search-msg').html('Por favor ingrese una cedula')
-      $('#search-msg').css('display', 'block')
-      setTimeout(function () {
-        $('#search-msg').html('Por favor ingrese una cedula')
-        $('#search-msg').css('display', 'none')
-      }, 3000)
     }
+    $('#btn-search').removeClass('loading')
+    $('#search-msg').html('Por favor ingrese una cedula')
+    $('#search-msg').css('display', 'block')
+    setTimeout(function () {
+      $('#search-msg').html('Por favor ingrese una cedula')
+      $('#search-msg').css('display', 'none')
+    }, 3000)
+
   }
 
   function disableFormFielfds(bool) {
@@ -313,7 +308,7 @@
 
   function maskPhones(phones) {
     const localPartIndex = 1
-    const domainIndex = 0
+    const domainIndex = 1
 
     let output = phones.map(phone => {
       const replacement = mask(phone, localPartIndex, domainIndex)
@@ -335,12 +330,12 @@
     $("input[name='celular']").val(maskedPhone)
     $("select[name='programa']").dropdown('set selected', person.data.programa)
     $("select[name='facultad']").dropdown('set selected', person.data.facultad)
-    if (person.data['cena_vegana'] == 'SI') {
+    if (person.data['cena_vegana'] === 'SI') {
       $("input[name='cena_vegana']").prop('checked', true)
     } else {
       $("input[name='cena_vegana']").prop('checked', false)
     }
-    if (person.data['pago_comprobado'] == 'SI') {
+    if (person.data['pago_comprobado'] === 'SI') {
       $('#pay-msg').removeClass('not-visible')
       $('#pay-msg').removeClass('warning')
       $('#pay-msg').addClass('success')
@@ -364,14 +359,11 @@
     $('.file-field').addClass('not-visible')
     $('#submit-btn').addClass('not-visible')
     $('#submit-pay-btn').addClass('not-visible')
-    // if (person.data['pago_generado'] == 'NO') {
-    //   $('#register-pay-btn').removeClass('not-visible')
-    //   $('#register-pay-btn').addClass('visible')
-    // }
     $("input[name='politicas']").prop('checked', true)
     disableFormFielfds(true)
     $('.ui.form').removeClass('loading')
   }
+
   function modalPayment() {
     var onSuccess = function (person) {
       if (!person) return console.log('Something went wrong searching user...')
