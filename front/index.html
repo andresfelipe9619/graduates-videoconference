@@ -48,9 +48,13 @@
         margin-top: 20px;
       }
 
-      #btn-search {
-        margin-top: 20;
-        
+      .btn-search-container {
+        display: flex;
+        height: 50px;
+        margin-top: 20px;
+        flex: 1 0 100%;
+        align-items: center;
+        justify-content: center;
       }
 
       .not-allowed {
@@ -100,7 +104,7 @@
               type="text" />
           </div>
         </div>
-        <div class="sixteen wide column">
+        <div class="btn-search-container">
           <button id="btn-search" tabindex="0" class="ui red button" onclick="searchForPerson()">
             Iniciar
           </button>
