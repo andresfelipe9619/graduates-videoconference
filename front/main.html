@@ -288,14 +288,51 @@
     }
   }
 
+  function mask(string, localPartIndex, domainIndex) {
+    const length = string.length - 1
+
+    const arr = string.split('').map((character, i) => {
+      if (i <= localPartIndex || length - domainIndex <= i) return character
+      return '*'
+    })
+
+    return arr.join('')
+  }
+
+  function maskEmails(emails) {
+    const localPartIndex = 1
+    const domainIndex = 4
+
+    let output = emails.map(email => {
+      const replacement = mask(email, localPartIndex, domainIndex)
+      return replacement
+    })
+
+    return output
+  }
+
+  function maskPhones(phones) {
+    const localPartIndex = 1
+    const domainIndex = 0
+
+    let output = phones.map(phone => {
+      const replacement = mask(phone, localPartIndex, domainIndex)
+      return replacement
+    })
+
+    return output
+  }
+
   function loadPersonInForm(person) {
     console.log('Person in form', person)
+    const [maskedPhone] = maskPhones([`${person.data.celular}`])
+    const [maskedEmail] = maskEmails([person.data.correo])
     personIndex = Number(person.index) + 1
     $("input[name='nombres']").val(person.data.nombres)
     $("input[name='apellidos']").val(person.data.apellidos)
     $("input[name='cedula']").val(person.data.cedula)
-    $("input[name='correo']").val(person.data.correo)
-    $("input[name='celular']").val(person.data.celular)
+    $("input[name='correo']").val(maskedEmail)
+    $("input[name='celular']").val(maskedPhone)
     $("select[name='programa']").dropdown('set selected', person.data.programa)
     $("select[name='facultad']").dropdown('set selected', person.data.facultad)
     if (person.data['cena_vegana'] == 'SI') {
