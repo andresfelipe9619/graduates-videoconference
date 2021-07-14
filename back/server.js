@@ -2,6 +2,22 @@ const API_URL = 'http://gospelgeek.com.co/scriptsuv/index.php'
 const PROGRAMAS =
   'https://docs.google.com/spreadsheets/d/1JBq9HT1yLVKGmpiB6fpOc6Lf0kqoZBziya0M5_dTjbo/edit?usp=sharing'
 
+const getCurrentUser = () => Session.getActiveUser().getEmail()
+
+function isAdmin () {
+  const guessEmail = getCurrentUser()
+  const admins = [
+    'suarez.andres@correounivalle.edu.co',
+    'samuel.ramirez@correounivalle.edu.co'
+  ]
+  Logger.log('guessEmail')
+  Logger.log(guessEmail)
+  const isGuessAdmin = admins.indexOf(String(guessEmail)) >= 0
+  Logger.log(isGuessAdmin)
+
+  return isGuessAdmin
+}
+
 function doGet (request) {
   return HtmlService.createTemplateFromFile('front/index.html')
     .evaluate() // evaluate MUST come before setting the Sandbox mode
@@ -82,6 +98,30 @@ function getFacultiesFromPrograms (programs) {
     return acc
   }, [])
   return faculties
+}
+
+function sendEmailsToGuests () {
+  const { sheet: inscritosSheet, headers } = getPeopleRegisteredSheet()
+  const data = getPeopleRegistered()
+  const emailIndex = headers.indexOf('CORREO_ENVIADO')
+  Logger.log('data')
+  Logger.log(data)
+  const peopleToSendEmail = data.filter(
+    p =>
+      normalizeString(p.enlace_inscripcion) &&
+      !normalizeString(p.correo_enviado)
+  )
+  Logger.log('peopleToSendEmail')
+  Logger.log(peopleToSendEmail)
+
+  peopleToSendEmail.forEach(sendInvitationEmail)
+  peopleToSendEmail.forEach(person => {
+    let index = data.findIndex(p => p.cedula === person.cedula)
+    if (index === -1) return
+    let rowIndex = index + 2;
+    inscritosSheet.getRange(rowIndex, emailIndex + 1).setValues([['SI']])
+  })
+  return { ok: true }
 }
 
 function getPeopleRegisteredSheet () {

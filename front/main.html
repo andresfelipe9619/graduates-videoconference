@@ -41,6 +41,7 @@
     console.log('Error Handler ==>', error)
     var mForm = $('.ui.form')
     mForm.removeClass('loading')
+    $('#btn-email').removeClass('loading')
     var errorBox = $('.ui.error.message')
     errorBox.removeClass('not-visible')
     errorBox.text(error.toString())
@@ -124,6 +125,28 @@
       .withSuccessHandler(onSuccess)
       .withFailureHandler(errorHandler)
       .registerPerson(formData)
+  }
+
+  function sendEmails() {
+    function onSuccess(response) {
+      if (response.ok) {
+        $('#btn-email').removeClass('loading')
+        $('.header.success').text(``)
+        $('.header.success').text(`Correos Enviados`)
+        $('#result-msg').text('')
+        $('#result-msg').text('Los correos se han enviado satisfactoriamente')
+        $('.ui.modal').modal('show')
+        $('.actions').css('display', 'block')
+      } else {
+        console.log('You fucked up', response)
+      }
+    }
+    $('#btn-email').addClass('loading')
+
+    google.script.run
+      .withSuccessHandler(onSuccess)
+      .withFailureHandler(errorHandler)
+      .sendEmailsToGuests()
   }
 
   function searchForPerson() {
@@ -418,6 +441,20 @@
 
     disableFormFielfds(false)
     $('.ui.form').form('clear')
+  }
+
+  function loadEmailButton() {
+    function onSuccess(result) {
+      console.log('good job', result)
+      if (result) {
+        $('#btn-email').removeClass('hidden')
+      }
+    }
+
+    google.script.run
+      .withSuccessHandler(onSuccess)
+      .withFailureHandler(errorHandler)
+      .isAdmin()
   }
 
   function loadAcademicProgramsAndFaculties() {
