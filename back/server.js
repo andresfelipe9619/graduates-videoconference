@@ -2,6 +2,8 @@ const API_URL = 'http://gospelgeek.com.co/scriptsuv/index.php'
 const PROGRAMAS =
   'https://docs.google.com/spreadsheets/d/1JBq9HT1yLVKGmpiB6fpOc6Lf0kqoZBziya0M5_dTjbo/edit?usp=sharing'
 
+// https://script.google.com/a/correounivalle.edu.co/macros/s/AKfycbynmAHlQAOKCy9OuebeldHFFFnDtDEOB7mK8IskH735LrhI40vaV4wWeqN4sFG4NPM4ag/exec
+
 const getCurrentUser = () => Session.getActiveUser().getEmail()
 
 function isAdmin () {
